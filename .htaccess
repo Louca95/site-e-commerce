@@ -1,0 +1,23 @@
+
+RewriteEngine On
+# Active le moteur de réécriture d'URL d'Apache
+
+# Redirige toutes les requêtes vers router.php
+RewriteCond %{REQUEST_FILENAME} !-f
+# Cette condition vérifie si le fichier demandé n'existe pas sur le serveur
+# Si le fichier existe, la règle suivante ne s'appliquera pas
+
+RewriteCond %{REQUEST_FILENAME} !-d
+# Cette condition vérifie si le répertoire demandé n'existe pas sur le serveur
+# Si le répertoire existe, la règle suivante ne s'appliquera pas
+
+#RewriteRule ^(.*)$ index.php [L,QSA]
+# Cette règle (commentée) redirige toutes les requêtes vers index.php
+# L'indicateur [L] signifie que c'est la dernière règle à appliquer si cette règle correspond
+# L'indicateur [QSA] permet de conserver les paramètres de requête d'origine lors de la redirection
+
+RewriteRule ^(.*)$ controllers/router.php [L,QSA]
+# Cette règle redirige toutes les requêtes qui n'ont pas abouti à un fichier ou répertoire existant vers router.php
+# Le pattern ^(.*)$ capture toute l'URI demandée
+# L'indicateur [L] signifie que c'est la dernière règle à appliquer si cette règle correspond
+# L'indicateur [QSA] permet de conserver les paramètres de requête d'origine lors de la redirection
